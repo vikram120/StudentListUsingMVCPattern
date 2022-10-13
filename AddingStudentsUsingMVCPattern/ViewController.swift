@@ -40,5 +40,19 @@ extension ViewController: UITableViewDelegate,UITableViewDataSource{
         cell?.detailTextLabel?.text = students[indexPath.row].address
         return cell!
     }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete
+        {
+            StudentTableV.beginUpdates()
+            students.remove(at: indexPath.row)
+            StudentTableV.deleteRows(at: [indexPath], with: .fade)
+            StudentTableV.endUpdates()
+        }
+    }
 }
 
